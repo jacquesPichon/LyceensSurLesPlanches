@@ -1,4 +1,4 @@
-#LSLP - booking
+# LSLP - booking
 ##
 ### Plugin de réservation, billetterie ect ...
 - Ajouter une entrée dans le menu de navigation à l'aide de `wp_update_nav_menu_item` voir [https://wordpress.stackexchange.com/questions/65398/how-to-make-a-plugin-auto-add-item-to-nav-menu](https://wordpress.stackexchange.com/questions/65398/how-to-make-a-plugin-auto-add-item-to-nav-menu)
