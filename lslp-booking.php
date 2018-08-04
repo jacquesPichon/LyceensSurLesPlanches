@@ -26,17 +26,29 @@ function add_booking_item_menu($pageid){
   );
   wp_update_nav_menu_item( $menu->term_id, 0, $menu_item_data );
 }
-
-function mod_menu(){
-  $pageexist=false;
-  
+  //////////////////////
+ //   booking page   //
+//////////////////////
+function get_booking_page(){
   $pages=get_pages(array('authors'=>'lslp'));
   foreach($pages as $page){
-    // var_dump($page->post_title);
-    // var_dump($page->ID);
-    echo $page->ID." -> ".$page->post_title."<br>";
-    if($page->post_title=="Billetterie") $pageexist=true;
+    if($page->post_title=="Billetterie") return $page->ID;
   }
+  return false;
+}
+
+function delete_booking_page(){
+  $pageid=get_booking_page();
+  if($pageid){
+    var_dump($pageid);
+    var_dump(wp_delete_post($pageid,true));
+  }
+}
+
+function add_booking_page(){
+  $pageexist=false;
+  
+  if(get_booking_page()) $pageexist=true;
   
   if(!$pageexist){
     //add page
@@ -48,15 +60,21 @@ function mod_menu(){
     'post_type' => 'page'
     );
 
-    // Insert the post into the database
     $pageid=wp_insert_post( $my_post );
     echo "added page";
-    //then add it to the menu
     if(is_int($pageid)) add_booking_item_menu($pageid);
   }
 }
+  //////////////////////
+ //       hooks      //
+//////////////////////
+register_activation_hook(__FILE__, 'add_booking_page');
+register_deactivation_hook(__FILE__, 'delete_booking_page');
 
-add_action('wp','mod_menu');
+
+
+
+
 
 
 
